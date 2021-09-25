@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 // Material UI
 import {
@@ -37,49 +37,29 @@ const useStyles = makeStyles((theme) => ({
 
 const Navbar = ({ activeMenu, handleActiveMenu }) => {
   const classes = useStyles();
+  const menus = ['Calendar', 'Classroom', 'Syllabus', 'Grade'];
+
+  const renderMenu = () => {
+    return menus.map((menu, index) => {
+      return (
+        <Typography
+          variant='body'
+          component='span'
+          className={classes.appBarMenu}
+          style={{ color: activeMenu === index && '#3f50b5' }}
+          onClick={() => handleActiveMenu(index)}
+        >
+          {menu}
+        </Typography>
+      );
+    });
+  };
 
   return (
     <AppBar color='white' position='static'>
       <Toolbar className={classes.toolbar}>
         <Typography variant='h6'>Lanka Class</Typography>
-        <div className='menu'>
-          <Typography
-            variant='body'
-            component='span'
-            className={classes.appBarMenu}
-            style={{ color: activeMenu === 0 && '#3f50b5' }}
-            onClick={() => handleActiveMenu(0)}
-          >
-            Calendar
-          </Typography>
-          <Typography
-            variant='body'
-            component='span'
-            className={classes.appBarMenu}
-            style={{ color: activeMenu === 1 && '#3f50b5' }}
-            onClick={() => handleActiveMenu(1)}
-          >
-            Classroom
-          </Typography>
-          <Typography
-            variant='body'
-            component='span'
-            className={classes.appBarMenu}
-            style={{ color: activeMenu === 2 && '#3f50b5' }}
-            onClick={() => handleActiveMenu(2)}
-          >
-            Syllabus
-          </Typography>
-          <Typography
-            variant='body'
-            component='span'
-            className={classes.appBarMenu}
-            style={{ color: activeMenu === 3 && '#3f50b5' }}
-            onClick={() => handleActiveMenu(3)}
-          >
-            Grade
-          </Typography>
-        </div>
+        <div className='menu'>{renderMenu()}</div>
         <div className={classes.icons}>
           <IconButton
             size='large'
